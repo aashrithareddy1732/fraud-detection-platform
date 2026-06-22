@@ -2,7 +2,11 @@
 
 A full-stack fraud risk operations platform that generates or imports card activity, scores risk with a rule-based or scikit-learn model, and gives analysts an explainable investigation workflow. Teams can generate data, upload their own transaction CSV, score a queue, review risk trends, and request a decision explanation.
 
-> This project deliberately uses synthetic data first. A real fraud dataset can be integrated later without changing the API or analyst workflow.
+## Demo
+
+![Fraud Detection Demo](screenshots/demo.gif)
+
+> The platform supports synthetic data for local testing and CSV ingestion for custom transaction data. A real fraud dataset can be integrated later without changing the API or analyst workflow.
 
 ## What It Demonstrates
 
@@ -29,7 +33,7 @@ flowchart LR
     Explain --> DB
 ```
 
-## Portfolio Features
+## Core Features
 
 - Generate and persist synthetic card transactions.
 - Score individual records or the full transaction queue using `POST /api/predict/all`.
@@ -191,17 +195,6 @@ The backend warns at startup when no OpenAI key is configured and continues in l
 | `GET` | `/api/models/runs` | View model training runs and evaluation metrics |
 | `GET` | `/ready`, `/version` | Readiness and build/model metadata |
 
-## Screenshots
-
-Add product-style screenshots for Risk Overview, Transaction Monitor, Case Investigation, Fraud Analytics, and Model Performance to [`screenshots/`](screenshots/). The folder is tracked so repository previews can be added without restructuring the project.
-
-## Resume Bullets
-
-- Built an AI-powered credit card fraud detection platform with FastAPI, React, SQLite, scikit-learn, and Docker, serving risk scores through documented REST APIs.
-- Developed a synthetic data pipeline and dual-path fraud scorer that uses a trained model when available and transparent rules when no model artifact is present.
-- Created an analyst dashboard with batch scoring, sortable and filterable transaction queues, risk visualizations, and OpenAI-assisted prediction explanations.
-- Designed an environment-safe deployment workflow using `python-dotenv`, ignored secrets, local explanation fallback, and Docker Compose configuration.
-
 ## Future Improvements
 
 - Integrate and validate against a real labeled fraud dataset.
@@ -209,21 +202,3 @@ Add product-style screenshots for Risk Overview, Transaction Monitor, Case Inves
 - Move batch scoring to background jobs for larger data volumes.
 - Add authentication, analyst roles, alert assignment, and case notes.
 - Add automated frontend tests, backend test coverage, and CI.
-
-## Lessons Learned
-
-- A prediction table is not an audit log: current state and scoring history need separate storage.
-- Explainability must describe a completed score, not silently become a second decision engine.
-- SQLite and synchronous scoring are excellent local-demo defaults, but production batch jobs need a queue, a worker, and a managed database.
-- Synthetic data enables product iteration; a real dataset requires an explicit schema contract, validation, evaluation, and governance process.
-
-## GitHub Publishing
-
-```powershell
-git init
-git add .
-git commit -m "Build fraud detection portfolio platform"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/fraud-detection-platform.git
-git push -u origin main
-```
